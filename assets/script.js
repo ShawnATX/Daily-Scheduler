@@ -42,11 +42,15 @@ function getDateTimeInfo(){
     dateKey = moment().format('YYYYMMDD');
 }
 
-function getEvents(date){
+function getDayEvents(date){
     let dateCheck = localStorage.getItem(dateKey);
     if (dateCheck) {
         todaysSchedule = JSON.parse(dateCheck);
     }
+}
+
+function getHourEvent(hour){
+    return(todaysSchedule[hour]);
 
 }
 
@@ -71,6 +75,7 @@ $(document).ready(function() {
                     //this is the description column which will take input and have dynamic style depending on current hour
                     case 1:
                         nextColumn = $("<input>");
+                        nextColumn.text(getHourEvent(i));
                         if (i < currentHour){
                             nextColumn.addClass("col-10 description past");
                         }
@@ -81,7 +86,6 @@ $(document).ready(function() {
                             nextColumn.addClass("col-10 description future");
                         }
                         //function to find any saved content to display in this time-block
-                        //getEvents(hour);
                         break;
                     case 2:
                         nextColumn = $("<div>");
@@ -99,7 +103,6 @@ $(document).ready(function() {
     function saveLocal() {
         localStorage.setItem(dateKey, JSON.stringify(todaysSchedule));
     }
-
 
     //function to convert 12-hour time to 24 hour numeric values
     function convertTo24(time){
@@ -177,12 +180,9 @@ $(document).ready(function() {
                 return 23;
                 break;
         }
-
-
-
     }
 
-    getEvents(dateKey);
+    getDayEvents(dateKey);
     loadSchedule();
     
     //save new schedule text to the session data, then push to local storage
@@ -190,15 +190,10 @@ $(document).ready(function() {
         console.log(event);
         let eventUpdate = event.currentTarget.previousElementSibling.value;
         console.log(eventUpdate, event.currentTarget.attributes.name.value);
-
-        //doing a parseInt to strip AM or PM off the hour text, allowing me to use the same array for the text content that is displayed
         let timeBlock = convertTo24(event.currentTarget.attributes.name.value);
-
         todaysSchedule[timeBlock] = eventUpdate;
         saveLocal();
-        
     })
-
     },
 );
 
