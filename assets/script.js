@@ -75,7 +75,8 @@ $(document).ready(function() {
                     //this is the description column which will take input and have dynamic style depending on current hour
                     case 1:
                         nextColumn = $("<input>");
-                        nextColumn.text(getHourEvent(i));
+                        nextColumn.attr("value", getHourEvent(i));
+                        console.log(nextColumn);
                         if (i < currentHour){
                             nextColumn.addClass("col-10 description past");
                         }
@@ -187,9 +188,7 @@ $(document).ready(function() {
     
     //save new schedule text to the session data, then push to local storage
     $(".saveBtn").on("click", function(event){
-        console.log(event);
         let eventUpdate = event.currentTarget.previousElementSibling.value;
-        console.log(eventUpdate, event.currentTarget.attributes.name.value);
         let timeBlock = convertTo24(event.currentTarget.attributes.name.value);
         todaysSchedule[timeBlock] = eventUpdate;
         saveLocal();
