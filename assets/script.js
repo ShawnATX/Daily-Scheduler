@@ -58,7 +58,7 @@ $(document).ready(function() {
     //function to populate the page with time blocks for 5AM to 12AM. This will be called only on page load, and will populate any saved calander info. 
     function loadSchedule(){
         //can update this in the future to have the start index be a variable for user to dictate the start of the work day
-        for (let i = 5; i < 24; i++) {
+        for (let i = 7; i < 18; i++) {
             let nextRow = $("<div>");
             let nextColumn;
             nextRow.addClass("row");
@@ -76,7 +76,6 @@ $(document).ready(function() {
                     case 1:
                         nextColumn = $("<textarea>");
                         nextColumn.text(getHourEvent(i));
-                        console.log(nextColumn.text);
                         if (i < currentHour){
                             nextColumn.addClass("col-10 description past");
                         }
@@ -91,7 +90,7 @@ $(document).ready(function() {
                         nextColumn = $("<div>");
                         nextColumn.addClass("col-1 saveBtn text-center");
                         nextColumn.attr("name", hourArr[i]);
-                        nextColumn.html("<i class='far fa-save fa-3x mt-2'>");
+                        nextColumn.html("<i class='far fa-save mt-4'>");
                         break;
                 }
                 nextRow.append(nextColumn);
@@ -194,6 +193,10 @@ $(document).ready(function() {
     })
     },
 );
+
+function clearAllData() {
+    localStorage.clear();
+}
 
 
 getDateTimeInfo();
