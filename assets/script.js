@@ -74,9 +74,9 @@ $(document).ready(function() {
                         break;
                     //this is the description column which will take input and have dynamic style depending on current hour
                     case 1:
-                        nextColumn = $("<input>");
-                        nextColumn.attr("value", getHourEvent(i));
-                        console.log(nextColumn);
+                        nextColumn = $("<textarea>");
+                        nextColumn.text(getHourEvent(i));
+                        console.log(nextColumn.text);
                         if (i < currentHour){
                             nextColumn.addClass("col-10 description past");
                         }
@@ -86,13 +86,12 @@ $(document).ready(function() {
                         else{
                             nextColumn.addClass("col-10 description future");
                         }
-                        //function to find any saved content to display in this time-block
                         break;
                     case 2:
                         nextColumn = $("<div>");
-                        nextColumn.addClass("col-1 saveBtn");
+                        nextColumn.addClass("col-1 saveBtn text-center");
                         nextColumn.attr("name", hourArr[i]);
-                        nextColumn.html("<i class='far fa-save'>");
+                        nextColumn.html("<i class='far fa-save fa-3x mt-2'>");
                         break;
                 }
                 nextRow.append(nextColumn);
@@ -130,7 +129,7 @@ $(document).ready(function() {
                 return 06;
                 break;
             case "7AM":
-                return 08;
+                return 07;
                 break;
             case "8AM":
                 return 08;
